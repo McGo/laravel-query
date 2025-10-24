@@ -13,14 +13,14 @@ trait HasNullFilter
 
     protected function addNullFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName)) {
+        if ($this->parameterBag->has($parameterName)) {
             $this->builder->whereNull($this->tablePrefix() . $fieldname);
         }
     }
 
     protected function addNotNullFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName)) {
+        if ($this->parameterBag->has($parameterName)) {
             $this->builder->whereNotNull($this->tablePrefix() . $fieldname);
         }
     }

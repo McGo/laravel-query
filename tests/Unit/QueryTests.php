@@ -2,6 +2,7 @@
 
 namespace McGo\Query\Tests\Unit;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use McGo\Query\Query;
@@ -24,6 +25,19 @@ class QueryTests extends BaseTestCase
 
         // Then
         $this->assertDatabaseCount('mocked_models', 1);
+    }
+
+    public function it_returns_a_query_builder_with_getbuilder()
+    {
+        // Given
+        $count = rand(1, 10);
+        MockedModel::factory()->count($count)->create();
+
+        // When
+        $builder = Query::theModel(MockedModel::class)->getBuilder();
+
+        // Then
+        $this->assertEquals(Builder::class, get_class($builder));
     }
 
     #[Test]

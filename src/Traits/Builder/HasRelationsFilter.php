@@ -12,7 +12,7 @@ trait HasRelationsFilter
 
     protected function addWithFilter(string $relation, string $parameterName): void
     {
-        if ($this->request->has($parameterName)) {
+        if ($this->parameterBag->has($parameterName)) {
             $this->builder->with($relation);
         }
     }
@@ -25,15 +25,15 @@ trait HasRelationsFilter
         string $parameterName,
         string $relationName = 'tempRelation'
     ) {
-        if ($this->request->has($parameterName) && !empty($this->request->get($parameterName))) {
-            $this->model_class::resolveRelationUsing($relationName,
+        if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
+            $this->modelClass::resolveRelationUsing($relationName,
                 function ($entity) use ($relatedModel, $pivotTable, $localPivotColumn, $foreignPivotColumn) {
                     return $entity->belongsToMany($relatedModel, $pivotTable, $localPivotColumn, $foreignPivotColumn);
                 });
 
             $this->builder->whereHas($relationName,
                 function (\Illuminate\Database\Eloquent\Builder $tags) use ($parameterName, $relatedModel) {
-                    $tags->whereIn((new $relatedModel)->getTable().'.id', $this->request->get($parameterName));
+                    $tags->whereIn((new $relatedModel)->getTable().'.id', $this->parameterBag->get($parameterName));
                 });
         }
     }

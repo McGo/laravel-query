@@ -3,12 +3,15 @@
 namespace McGo\Query\Tests\Mock\Builder;
 
 use McGo\Query\Contracts\AQueryBuilder;
+use McGo\Query\Traits\Builder\HasContainsFilter;
 
 class MockedModelQueryBuilder extends AQueryBuilder
 {
+    use HasContainsFilter;
 
     public function filters(): AQueryBuilder
     {
+        $this->addContainsFilter('a_string_field', 'filterContainsStringField');
         return $this;
     }
 

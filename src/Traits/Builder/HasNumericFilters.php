@@ -14,16 +14,16 @@ trait HasNumericFilters
 
     protected function addValueLessOrEqualThanFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName) && !empty($this->request->get($parameterName))) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '<=', $this->request->get($parameterName));
+        if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
+            $this->builder->where($this->tablePrefix() . $fieldname, '<=', $this->parameterBag->get($parameterName));
         }
     }
 
 
     protected function addValueLessThanFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName) && !empty($this->request->get($parameterName))) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '<', $this->request->get($parameterName));
+        if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
+            $this->builder->where($this->tablePrefix() . $fieldname, '<', $this->parameterBag->get($parameterName));
         }
     }
 
@@ -31,46 +31,46 @@ trait HasNumericFilters
     protected function addValueBetweenIncludingFilter(string $fieldname, string $lowerParameter, string $higherParameter): void
     {
         if (
-            $this->request->has($lowerParameter)
+            $this->parameterBag->has($lowerParameter)
             &&
-            !empty($this->request->get($lowerParameter))
+            !empty($this->parameterBag->get($lowerParameter))
             &&
-            $this->request->has($higherParameter)
+            $this->parameterBag->has($higherParameter)
             &&
-            !empty($this->request->get($higherParameter))
+            !empty($this->parameterBag->get($higherParameter))
         ) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '>=', $this->request->get($lowerParameter))
-                ->where($this->tablePrefix() . $fieldname, '<=', $this->request->get($higherParameter));
+            $this->builder->where($this->tablePrefix() . $fieldname, '>=', $this->parameterBag->get($lowerParameter))
+                ->where($this->tablePrefix() . $fieldname, '<=', $this->parameterBag->get($higherParameter));
         }
     }
 
     protected function addValueBetweenExcludingFilter(string $fieldname, string $lowerParameter, string $higherParameter): void
     {
         if (
-            $this->request->has($lowerParameter)
+            $this->parameterBag->has($lowerParameter)
             &&
-            !empty($this->request->get($lowerParameter))
+            !empty($this->parameterBag->get($lowerParameter))
             &&
-            $this->request->has($higherParameter)
+            $this->parameterBag->has($higherParameter)
             &&
-            !empty($this->request->get($higherParameter))
+            !empty($this->parameterBag->get($higherParameter))
         ) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '>', $this->request->get($lowerParameter))
-                ->where($this->tablePrefix() . $fieldname, '<', $this->request->get($higherParameter));
+            $this->builder->where($this->tablePrefix() . $fieldname, '>', $this->parameterBag->get($lowerParameter))
+                ->where($this->tablePrefix() . $fieldname, '<', $this->parameterBag->get($higherParameter));
         }
     }
 
     protected function addValueMoreOrEqualThanFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName) && !empty($this->request->get($parameterName))) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '>=', $this->request->get($parameterName));
+        if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
+            $this->builder->where($this->tablePrefix() . $fieldname, '>=', $this->parameterBag->get($parameterName));
         }
     }
 
     protected function addValueMoreThanFilter(string $fieldname, string $parameterName): void
     {
-        if ($this->request->has($parameterName) && !empty($this->request->get($parameterName))) {
-            $this->builder->where($this->tablePrefix() . $fieldname, '>', $this->request->get($parameterName));
+        if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
+            $this->builder->where($this->tablePrefix() . $fieldname, '>', $this->parameterBag->get($parameterName));
         }
     }
 }
