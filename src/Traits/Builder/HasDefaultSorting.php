@@ -11,13 +11,11 @@ trait HasDefaultSorting
 {
     public function order(): self
     {
-        if ($this->parameterBag->has('orderBy')) {
-            $orderType = $this->parameterBag->get('orderType', 'ASC');
-            if ($orderType === 'DESC') {
-                $this->builder->orderByDesc($this->parameterBag->has('orderBy'));
-            } elseif ($orderType === 'ASC') {
-                $this->builder->orderBy($this->parameterBag->has('orderBy'));
-            }
+        $orderType = $this->parameterBag->get('orderType', 'ASC');
+        if ($orderType === 'DESC') {
+            $this->builder->orderBy($this->parameterBag->get('orderBy'), 'DESC');
+        } elseif ($orderType === 'ASC') {
+            $this->builder->orderBy($this->parameterBag->get('orderBy'));
         }
 
         return $this;

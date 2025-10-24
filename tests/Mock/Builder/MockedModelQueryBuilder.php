@@ -5,6 +5,7 @@ namespace McGo\Query\Tests\Mock\Builder;
 use McGo\Query\Contracts\AQueryBuilder;
 use McGo\Query\Traits\Builder\HasContainsFilter;
 use McGo\Query\Traits\Builder\HasDateFilter;
+use McGo\Query\Traits\Builder\HasDefaultSorting;
 use McGo\Query\Traits\Builder\HasLimitAndSkipFromParameterBag;
 
 class MockedModelQueryBuilder extends AQueryBuilder
@@ -12,6 +13,7 @@ class MockedModelQueryBuilder extends AQueryBuilder
     use HasContainsFilter;
     use HasDateFilter;
     use HasLimitAndSkipFromParameterBag;
+    use HasDefaultSorting;
 
     public function filters(): AQueryBuilder
     {
@@ -26,11 +28,6 @@ class MockedModelQueryBuilder extends AQueryBuilder
     }
 
     public function scopes(): AQueryBuilder
-    {
-        return $this;
-    }
-
-    public function order(): AQueryBuilder
     {
         return $this;
     }
