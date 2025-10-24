@@ -75,7 +75,7 @@ class OrderIndexController
         return Query::theModel(Order::class)
             ->withBuilder(OrderQueryBuilder::class)
             ->forRequest($request)
-            ->to(new SONResourceCollectionTransformer(OrderResourceCollection::class))
+            ->to(new JSONResourceCollectionTransformer(OrderResourceCollection::class))
             ->run();
     }
 }
@@ -85,9 +85,8 @@ class OrderIndexController
 
 ## Extension Points
 
-- Register **custom operators** (`ilike`, `json_contains`, etc.)
-- Add **macros** for reusable filter chains
-- Define **preset FilterSets** per model or resource
+- Build custom Query Builders for your models
+- Build custom Transformers to transform the eloquent collection to your desired format
 
 ---
 
