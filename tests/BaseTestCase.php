@@ -2,6 +2,9 @@
 
 namespace McGo\Query\Tests;
 
+use McGo\Query\Query;
+use McGo\Query\Tests\Mock\Builder\MockedModelQueryBuilder;
+use McGo\Query\Tests\Mock\Models\MockedModel;
 use Orchestra\Testbench\TestCase;
 
 class BaseTestCase  extends TestCase
@@ -30,5 +33,18 @@ class BaseTestCase  extends TestCase
     protected function writeTests()
     {
         $this->assertTrue(false, 'Test has to be written!');
+    }
+
+    public function getMockedQueryResultWithArray(array $array)
+    {
+        return $this->getMockedQueryBuilderWithArray($array)->get();
+    }
+    public function getMockedQueryBuilderWithArray(array $array)
+    {
+        return Query::theModel(MockedModel::class)
+            ->withBuilder(MockedModelQueryBuilder::class)
+            ->forArray($array)
+            ->getBuilder();
+
     }
 }

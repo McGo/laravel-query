@@ -11,25 +11,24 @@ use McGo\Query\Contracts\AQueryBuilder;
 trait HasDateFilter
 {
 
-
     protected function addDateEqualsFilter(string $fieldname, string $parameterName): void
     {
         if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
-            $this->builder->whereDate($this->tablePrefix() . $fieldname, '=', $this->request->get($parameterName));
+            $this->builder->whereDate($this->tablePrefix() . $fieldname, '=', $this->parameterBag->get($parameterName));
         }
     }
 
     protected function addDateBeforeFilter(string $fieldname, string $parameterName): void
     {
         if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
-            $this->builder->whereDate($this->tablePrefix() . $fieldname, '<=', $this->request->get($parameterName));
+            $this->builder->whereDate($this->tablePrefix() . $fieldname, '<=', $this->parameterBag->get($parameterName));
         }
     }
 
     protected function addDateAfterFilter(string $fieldname, string $parameterName): void
     {
         if ($this->parameterBag->has($parameterName) && !empty($this->parameterBag->get($parameterName))) {
-            $this->builder->whereDate($this->tablePrefix() . $fieldname, '>=', $this->request->get($parameterName));
+            $this->builder->whereDate($this->tablePrefix() . $fieldname, '>=', $this->parameterBag->get($parameterName));
         }
     }
 
