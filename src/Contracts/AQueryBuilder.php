@@ -46,12 +46,34 @@ abstract class AQueryBuilder
         return $this;
     }
 
+    /**
+     * Limit the number of results if desired.
+     *
+     * @return $this
+     */
+    public function limit(): self
+    {
+        return $this;
+    }
+
+    /**
+     * Skip some records.
+     *
+     * @return $this
+     */
+    public function skip(): self
+    {
+        return $this;
+    }
+
     public function build(): Builder
     {
         $this->with();
         $this->scopes();
         $this->filters();
         $this->order();
+        $this->limit();
+        $this->skip();
         return $this->builder;
     }
 }
