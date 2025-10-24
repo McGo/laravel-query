@@ -2,11 +2,13 @@
 
 namespace McGo\Query;
 
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
+use McGo\Query\Builder\EmptyQueryBuilder;
 use McGo\Query\Contracts\AQueryBuilder;
 use McGo\Query\Contracts\AQueryTranformer;
 use Exception;
 use McGo\Query\Traits\Query\QuerySources;
+use McGo\Query\Transformers\CollecionTransformer;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,16 +28,21 @@ final class Query
      */
     public function __construct(string $modelClass)
     {
-        if (!is_subclass_of(Model::class, $modelClass)) {
+        if (!is_subclass_of($modelClass,Model::class)) {
             throw new Exception("Model class must be a subclass of Illuminate\Database\Eloquent\Model");
         }
+
+        // Initialize with defaults so that no filters are applied and the query returns all records as collection
         $this->modelClass = $modelClass;
+        $this->withBuilder(EmptyQueryBuilder::class);
+        $this->to(new CollecionTransformer());
+        $this->queryParameters = new ParameterBag([]);
     }
 
     /**
      * @throws Exception
      */
-    public static function aModel(string $modelClass): self
+    public static function theModel(string $modelClass): self
     {
         return new Query($modelClass);
     }
@@ -45,7 +52,7 @@ final class Query
      */
     public function withBuilder(string $builderClass): self
     {
-        if (!is_subclass_of(AQueryBuilder::class, $builderClass)) {
+        if (!is_subclass_of($builderClass,AQueryBuilder::class)) {
             throw new Exception("Builder class must be a subclass of McGo\Query\Contracts\AQueryBuilder");
         }
         $this->builderClass = $builderClass;
