@@ -1,10 +1,11 @@
 {
-  "name": "mcgo/laravel-request-query-filter",
-  "description": "Add eloquent query filters based on request query parameters",
+  "name": "mcgo/laravel-query",
+  "description": "Query eloquent models with custom builders and transformers",
+  "homepage": "https://mcgo.dev/packages/laravel-query",
   "authors": [
     {
       "name": "Mirko Haaser",
-      "email": "laravel-request-query-filter@mcgo.dev"
+      "email": "laravel-query@mcgo.dev"
     }
   ],
   "license": "MIT",
@@ -18,19 +19,12 @@
   },
   "autoload": {
     "psr-4": {
-      "McGo\\RequestQueryFilter\\": "src/"
+      "McGo\\Query\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "McGo\\RequestQueryFilter\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "McGo\\RequestQueryFilter\\RequestQueryFiltererviceProvider"
-      ]
+      "McGo\\Query\\Tests\\": "tests/"
     }
   },
   "config": {
