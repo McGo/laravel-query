@@ -10,6 +10,14 @@ use McGo\Query\Contracts\AQueryBuilder;
  */
 trait HasEqualFilter
 {
+
+    protected function addEqualsFilterInsensitive(string $fieldname, string $parameterName): void
+    {
+        if ($this->parameterBag->has($parameterName)) {
+            $this->builder->whereRaw("UPPER('".$fieldname."') LIKE '%".strtoupper($this->parameterBag->get($parameterName))."%'")->first();
+        }
+    }
+
     protected function addEqualsFilter(string $fieldname, string $parameterName): void
     {
         if ($this->parameterBag->has($parameterName)) {
